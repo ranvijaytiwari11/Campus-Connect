@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Production Builds
+dist/
+build/
+
+# Logs & System Files
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
