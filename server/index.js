@@ -20,11 +20,24 @@ connectDB();
 
 const app = express();
 
-// Global Middleware
+// Allowed Origins for CORS
+const allowedOrigins = [
+  'https://campus-connect-phi-roan.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:3000',
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin: '*', // Allow development frontend clients
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

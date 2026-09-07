@@ -1,8 +1,16 @@
 import axios from 'axios';
 
+// Helper to ensure API base URL always targets the /api namespace
+const getBaseURL = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl) return '/api';
+  const cleaned = envUrl.trim().replace(/\/+$/, '');
+  return cleaned.endsWith('/api') ? cleaned : `${cleaned}/api`;
+};
+
 // Create central Axios instance
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: getBaseURL(),
   headers: {
     'Content-Type': 'application/json',
   },
